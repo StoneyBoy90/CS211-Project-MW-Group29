@@ -6,9 +6,9 @@ int main()
 {
 	int size = 5;
 	int board[5][5] = {
-		{0, 0, 2, 4, 8},
-		{0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0},
+		{2, 0, 0, 0, 0},
+		{4, 0, 0, 0, 0},
+		{8, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
 	};
@@ -29,7 +29,14 @@ int main()
 		cin >> choice;
 
 		if (choice == 'u')
-			move_up(board, size);
+		{
+			bool changed = move_up(board, score, size); //Checks whether the tiles have changed.
+			if(changed)
+			{
+				moves++; //Counts successful move.
+				insert_random(board, size); //
+			}
+		}
 		else if (choice == 'd')
 			move_down(board, size);
 		else if (choice == 'l')

@@ -134,9 +134,66 @@ bool move_right(int board[][5], int &score, int numrows = 5) //Moves all tiles t
 	return false; //No cells changed.
 }
 
-void move_up(int board[][5], int numrows = 5)
+bool move_up(int board[][5], int &score, int numrows = 5)
 {
-	//CODE HERE
+	int starting[5][5]; //Saves the board before move.
+	for(int r = 0; r < numrows; r++) //Cycles through each row.
+	{
+		for (int c = 0; c < 5; c++) //Copies each column on the current row.
+		{
+			starting[r][c] = board[r][c]; //Copies each starting tile.
+		}
+	}
+	for (int c = 0; c < 5; c++) //Cycles through each column.
+	{
+		int nextRow = 0; //Starts placing tiles at the top.
+		for(int r = 0; r < numrows; r++) //Checks each row from top to bottom.
+		{
+			if (board[r][c] != 0) //Skips empty spaces.
+			{
+				board[nextRow][c] = board[r][c]; //Places the tile in the next spot.
+				if(nextRow != r) //Checks whether the tile moved.
+				{
+					board[r][c] = 0; //Clears its old spot.
+				}
+				nextRow++; //Moves to the next spot down one row.
+			}
+		}
+		for (int r = 0; r < numrows - 1; r++) //Compares tiles from top to bottom.
+		{
+			if (board[r][c] != 0 && board[r][c] ==board[r+1][c])
+			{
+				board[r][c] *=2; //Doubles the top tile.
+				score += board[r][c]; //Adds the merged value to the score.
+				board[r+1][c] = 0; //Clears the lower tile.
+				r++; //Skips the two so that it cannot merge again.
+			}
+		}
+		nextRow = 0; //Resets the next spot to the top.
+		for(int r = 0; r < numrows; r++) //Checks each row from top to bottom.
+		{
+			if(board[r][c] != 0) //Skips empty spaces.
+			{
+				board[nextRow][c] = board[r][c]; //Places the tile in the next spot.
+				if(nextRow != r) //Checks whether the tile moved.
+				{
+					board[r][c] = 0; //Clears its old spot.
+				}
+				nextRow++; //Moves to the next spot down one row.
+			}
+		}
+	}
+	for(int r = 0; r < numrows; r++) //Checks each row for changes.
+	{
+		for( int c = 0; c < 5; c++) //Checks each column.
+		{
+			if(board[r][c] != starting[r][c]) //Checks for changed cells.
+			{
+				return true; //The move changed the board.
+			}
+		}
+	}
+	return false; //No cells changed.
 }
 
 void move_down(int board[][5], int numrows = 5)

@@ -33,4 +33,12 @@ With the other rows empty and random insertion disabled, each test starts with s
 Starting: 2 2 2 0 0; Expected: 0 0 0 2 4; Actual: 0 0 0 2 4; Score: 4; Moves: 1; Passed.
 Starting: 2 0 2 0 4; Expected: 0 0 0 4 4; Actual: 0 0 0 4 4; Score: 4; Moves: 1; Passed.
 Starting: 2 2 2 2 2; Expected: 0 0 2 4 4; Actual: 0 0 2 4 4; Score: 8; Moves: 1; Passed.
-Starting: 0 0 2 4 8; Expected: no change; Actual: no change; Score 0; Moves 0; Passed. 
+Starting: 0 0 2 4 8; Expected: no change; Actual: no change; Score 0; Moves 0; Passed.
+
+# Up Movement Tests
+First Column, values listed from top to bottom. All other cells are zero. Random insertion is disabled and each test starts with score 0 and moves 0.
+
+Starting: 2 2 2 0 0; Expected: 4 2 0 0 0, score 4, moves 1; Actual: 4 2 0 0 0, score 4, moves 1; Passed.
+Starting: 4 0 2 0 2; Expected: 4 4 0 0 0, score 4, moves 1; Actual: 4 4 0 0 0, score 4, moves 1; Passed.
+Starting: 2 2 2 2 2; Expected: 4 4 2 0 0, score 8, moves 1; Actual: 4 4 2 0 0, score 8, moves 1; Passed.
+Starting: 2 4 8 0 0; Expected: no change, score 0, moves 0; Actual: no change, score 0, moves 0; Passed.

@@ -196,9 +196,67 @@ bool move_up(int board[][5], int &score, int numrows = 5)
 	return false; //No cells changed.
 }
 
-void move_down(int board[][5], int numrows = 5)
+bool move_down(int board[][5], int &score, int numrows = 5)
 {
-	//CODE HERE
+	int starting[5][5]; //Saves the board before move.
+	for(int r = 0; r < numrows; r++) //Copies the current board to starting.
+	{
+		for(int c = 0; c < 5; c++) //Cyles through each column.
+		{
+			starting[r][c] = board[r][c]; //Copies the current cell to starting.
+		}
+	}
+	for(int c = 0; c < 5; c++) //Cycles through each column.
+	{
+			int nextRow = numrows-1; //Starts placing tiles at the bottom.
+			for(int r = numrows-1; r >=0; r--) //Checks rows from bottom to top.
+			{
+				if(board[r][c] != 0) //Skips empty spaces.
+				{
+					board[nextRow][c] = board[r][c]; //Places the tile in the next spot.
+					if(nextRow != r) //Checks whether the tile moved.
+					{
+						board[r][c] = 0; //Clears its old spot.
+					}
+					nextRow--; //Moves the next spot up one row.
+				}
+			}
+			for(int r = numrows-1; r > 0; r--) //Compares tiles from bottom to top.
+			{
+				if(board[r][c] != 0 && board[r][c] == board[r-1][c]) //Checks if the current tile matches the one above it.
+				{
+					board[r][c] *= 2; //Doubles the lower tile.
+					score += board[r][c]; //Adds the merged value to the score.
+					board[r-1][c] = 0; //Clears the upper tile.
+					r--; //Skips the two so that it cannot merge again.
+				}
+			}
+			nextRow = numrows -1; //Resets the next spot to the bottom.
+			for(int r = numrows -1; r >=0; r--) //Checks rows from bottom to top.
+			{
+				if(board[r][c] != 0) //Skips empty spaces.
+				{
+					board[nextRow][c] = board[r][c]; //Places the tile in the next spot.
+					if(nextRow != r) //Checks if the tile moved.
+					{
+						board[r][c] = 0; //Clears its old spot.
+					}
+					nextRow--; //Moves the next spot up on row.
+				}
+			}
+		}
+	
+	for(int r = 0; r < numrows; r++) //Checks each row for changes.
+	{
+		for(int c = 0; c < 5; c++) //Checks each column.
+		{
+			if(board[r][c] != starting[r][c]) //Checks for changed cells.
+			{
+				return true; //The move changed the board.
+			}
+		}
+	}
+	return false; //No cells changed.
 }
 
 

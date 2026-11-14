@@ -314,5 +314,21 @@ void insert_random(int board[][5], int numrows = 5)
 		}
 
 	}
+
+}
+
+void new_game(int board[][5], int &score, int &moves, int numrows = 5) //Startes a new game.
+{
+	for(int r = 0; r < numrows; r++) //Goes through each row.
+	{
+		for(int c = 0; c < 5; c++) //Goes through each column.
+		{
+			board[r][c] = 0; //Clears the cell.
+		}
+	}
+	score = 0; //Resets score.
+	moves = 0; //Resets moves.
+	insert_random(board, numrows); //Adds the first random tile.
+	insert_random(board, numrows); //Adds second random tile.
 }
 

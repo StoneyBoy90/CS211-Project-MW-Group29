@@ -52,3 +52,24 @@ Initial test: 2 0 2 0 4; Expectd: 0 0 0 4 4, score 4, moves 1; Actual: 0 0 0 0 8
 Retest: 0 0 0 4 4, score 4, moves 1; Passed.
 Starting: 2 2 2 2 2; Expected: 0 0 2 4 4, score 8, moves 1; Actual: 0 0 2 4 4, score 8, moves 1; Passed.
 Starting: 0 0 2 4 8; Expected: no change; Actual; no change, score 0, moves 0; Passed.
+
+# Initialize New Game
+Expected: two random 2s in different cells, all others 0, score 0, moves 0; Actual: As Expected; Passed.
+
+# Confirm New Game
+Input: n, then y; Expected: two 2s in different cells, all other cells 0, score 0, moves 0; Actual: As Expected; Passed.
+
+# Cancel New Game
+Input: n, then n; Expected: no change to board, score, and moves; Actual: As Expected; Passed.
+
+# Help Menu
+Input: h; Expected: help menu displays while the board, score, and moves are unchanged; Actual: As Expected; Passed.
+
+# Invalid Command
+Input: p; Expected: error message and no change to board, score, and moves; Actual As Expected; Passed.
+
+# Exit
+Input: e; Expected: program ends; Actual: program ends; Passed.
+
+# End Input
+Input: Control+D; Expected: program ends; Actual: program ends; Passed.

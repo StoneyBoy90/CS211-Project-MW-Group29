@@ -6,7 +6,7 @@ int main()
 {
 	int size = 5;
 	int board[5][5] = {
-		{0, 2, 0, 4, 0},
+		{0, 0, 2, 4, 8},
 		{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
@@ -42,8 +42,14 @@ int main()
 				}
 			}
 		else if (choice == 'r')
-			move_right(board, size);
-
+		{
+			bool changed = move_right(board, score, size); //Checks whether the tiles have changed.
+			if(changed) //Checks if the move changed the board.
+			{
+				moves++; //Counts the successful move.
+				insert_random(board, size); //Adds one new tile.
+			}
+		}
 		print_board(board);
 
 		cout<<"Score: "<<score<<endl; //Prints the total score.

@@ -69,9 +69,69 @@ for(int r = 0; r < numrows; r++) //cycles through each row.
 	return false; //No cells Changed.
 }
 
-void move_right(int board[][5], int numrows = 5)
+bool move_right(int board[][5], int &score, int numrows = 5) //Moves all tiles to the right and merges them.
 {
-	//CODE HERE
+	int starting[5][5]; //Saves the board before moving.
+	for(int r = 0; r < numrows; r++) //Cycles through each row.
+	{
+		for (int c = 0; c < 5; c++) //Copies each column of the current row.
+		{
+			starting[r][c] = board[r][c]; //Copies each starting tile.
+		}
+	}
+	
+	for(int r = 0; r < numrows; r++) //Cycles through each row.
+	{
+		int nextCol = 4; //Creates the next column index for tiles from the right.
+		for(int c = 4; c >= 0; c--) //Checks each column from right to left.
+		{
+			if (board[r][c] != 0) //Skips empty spaces.
+			{
+				board[r][nextCol] = board[r][c]; //Places the tile in the next spot.
+				if(nextCol != c) //Checks whether the tile moved.
+				{
+					board[r][c] = 0; //Clears the old spot if the tile moved.
+				}
+				nextCol--; //Moves to the next spot to the left.
+			}
+		}
+	
+		for (int c = 4; c > 0; c--) //Compares tiles from right to left.
+		{
+			if (board[r][c] != 0 && board[r][c] == board[r][c-1]) //Merges matching tiles that are not zero.
+			{
+				board[r][c] *= 2; //Doubles the right tile.
+				score += board[r][c]; //Adds the merged value to the score.
+				board[r][c-1] = 0; //Clears the left tile.
+				c--; //Skips the pair so it cannot merge again.
+			
+			}
+		}
+		nextCol = 4; //Resets the next spot to the right edge.
+		for(int c = 4; c >= 0; c--) //Checks each column from right to left.
+		{
+			if (board[r][c] != 0) //Skips empty spcaes.
+			{
+				board[r][nextCol] = board[r][c]; //Places the tile in the next spot.
+				if(nextCol != c) //Checks whether the tile moved.
+				{
+					board[r][c] = 0; //Clears the old spot if the tile moved.
+				}
+				nextCol--; //Moves the next spot one column left.
+			}
+		}
+	}
+	for (int r = 0; r < numrows; r++) //Checks each row for changes.
+	{
+		for(int c = 0; c < 5; c++) //Checks each column.
+		{
+			if(board[r][c] != starting[r][c]) //Looks for changed cells.
+			{
+				return true; //The move changed the board.
+			}
+		}
+	}
+	return false; //No cells changed.
 }
 
 void move_up(int board[][5], int numrows = 5)

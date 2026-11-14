@@ -26,3 +26,11 @@ Input 1 again; Expected: no change, Score: 24, Moves: 1; Actual: no change, Scor
 Successful Move: Starting: 4 4 8 8 0, other rows 0; Expected: 8 16 0 0 0, Random 2, Score: 24, Moves: 1; Actual: 8 16 0 0 0, Random 2 in row 3 col 5, Score: 24, Moves: 1; Passed.
 No Change: Starting: 2 4 8 0 0, other rows 0; Expected: same board, no random, Score: 0, Moves: 0; Actual: same board, no random, Score: 0, Moves: 0; Passed.
 Starting: 0 2 0 4 0, other rows 0, Score: 0; Moves: 0; Input: 1; Expected: 2 4 0 0 0, Random 2, Score: 0, Moves: 1; Actual: 2 4 0 0 0, Random 2 in row 3 col 5, Score: 0, Moves: 1; Passed.
+
+# Right Movement Tests
+With the other rows empty and random insertion disabled, each test starts with score 0 and moves 0.
+
+Starting: 2 2 2 0 0; Expected: 0 0 0 2 4; Actual: 0 0 0 2 4; Score: 4; Moves: 1; Passed.
+Starting: 2 0 2 0 4; Expected: 0 0 0 4 4; Actual: 0 0 0 4 4; Score: 4; Moves: 1; Passed.
+Starting: 2 2 2 2 2; Expected: 0 0 2 4 4; Actual: 0 0 2 4 4; Score: 8; Moves: 1; Passed.
+Starting: 0 0 2 4 8; Expected: no change; Actual: no change; Score 0; Moves 0; Passed. 

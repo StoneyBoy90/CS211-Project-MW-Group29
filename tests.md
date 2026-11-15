@@ -73,3 +73,22 @@ Input: e; Expected: program ends; Actual: program ends; Passed.
 
 # End Input
 Input: Control+D; Expected: program ends; Actual: program ends; Passed.
+
+# Highest Tile
+Initial Start Expected: score 0, move 0, highest tile 2; Actual: score 0, move 0, highest tile 2; Passed.
+Input: merge two 2 tiles; Expected: score 4, move 2, highest tile 4; Actual score 4, move 2, highest tile 4; Passed.
+
+# Win Message
+First row, first and second column set to 1024 for test of win message.
+Input: l; Expected: win message displayed; Actual: win message displayed; Passed.
+
+# Game-Over
+Full board of alternating 2s and 4s for test.
+Input: l; Expected: game-over message, unchanged board, score 0, move 0; Actual: As Expected; Passed.
+
+# Help Menu - Post Game-Over
+Input: h; Expected: help menu displayed, game remains open; Actual: As Expected; Passed.
+
+# Full-board Merge
+First row 2 2 2 4 2 for test.
+Input: l; Expected: first row 4 2 4 2 2, score 4, moves 1, no game over; Actual: As Expected; Passed.

@@ -332,3 +332,41 @@ void new_game(int board[][5], int &score, int &moves, int numrows = 5) //Startes
 	insert_random(board, numrows); //Adds second random tile.
 }
 
+int highest_tile(int board[][5], int numrows = 5) //Returns the highest tile on the board.
+{
+	int highest = 0; //Starts with no tile found.
+	for(int r = 0; r < numrows; r++) //Cycles through each row.
+	{
+		for(int c = 0; c < 5; c++) //Cycles through each column.
+		{
+			if(board[r][c] > highest) //Checks for larger tile.
+			{
+				highest = board[r][c]; //Stores the new highest tile.
+			}
+		}
+	}
+	return highest; //Returns the highest tile found.
+}
+
+bool game_over(int board[][5], int numrows = 5) //Check if the game is over.
+{
+	for(int r = 0; r < numrows; r++) //Cycles through each row.
+	{
+		for(int c = 0; c < 5; c++) //Cycles through each column.
+		{
+			if(board[r][c] == 0) //An empty space continues game
+			{
+				return false; //Game is not over.
+			}
+			if(c < 4 && board[r][c] == board[r][c+1]) //Checks merge with tile to the right.
+			{
+				return false; //Game is not over if merge is possible.
+			}
+			if(r < numrows - 1 && board[r][c] == board[r+1][c]) //Checks merge with tile below.
+			{
+				return false; //Game is not over if merge is possible.
+			}
+		}
+	}
+	return true; //No moves are left, game is over.
+}

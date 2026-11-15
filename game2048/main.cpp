@@ -10,13 +10,30 @@ int main()
 	int moves = 0; //Counts successful moves.
 
 	new_game(board, score, moves, size); //Starts new game.
+	//Test
+	for(int r = 0; r < size; r++) //Start filling board for test.
+	{
+		for(int c = 0; c < 5; c++) //Starts filling each column.
+		{
+			if((r+c)%2 == 0) //Fills each cell.
+			{
+				board[r][c] = 2; //Fills the cell with a 2 for test.
+			}
+			else
+			{
+				board[r][c] = 4; //Fills the cell with a 4 for test.
+			}
+		}
+	}
 
 	cout<<"Initial Board: [5x5]"<<endl; //Prints the initial board.
 	print_board(board); //Diplays board.
 	cout<<"Score: "<<score<<endl; //Prints the starting score.
 	cout<<"Moves: "<<moves<<endl; //Prints the starting moves.
+	cout<<"Highest Tile: "<<highest_tile(board, size)<<endl; //Prints the highest tile.
 
 	char choice = 'u'; //Starting choice for the game.
+	bool winUpdate = false; //Tracks whether win message displayed.
 	
 	while (choice != 'e')
 	{
@@ -28,7 +45,13 @@ int main()
 			break; //Exits.
 		}
 
-		if (choice == 'u')
+		if ((choice == 'u' || choice == 'd' || choice == 'l' || choice == 'r') && game_over(board, size))
+		{
+			cout<<"** No moves remain! This board is finsihed! **"<<endl; //Prints game over message.
+			cout<<"For a new game, press 'n'"<<endl; //Prints out how to start a new game.
+			cout<<"Press 'e' to exit or 'h' for help."<<endl; //Prints out how to exit or get help.
+		}
+		else if(choice == 'u')
 		{
 			bool changed = move_up(board, score, size); //Checks whether the tiles have changed.
 			if(changed)
@@ -76,21 +99,22 @@ int main()
 			if(confirm == 'y' || confirm == 'Y') //If confirmed, start a new game.
 			{
 				new_game(board, score, moves, size); //Starts a new game.
+				winUpdate = false; //Resets the win message.
 			}
 		}
 		else if(choice == 'h') //Help option.
 		{
-			cout<<"--- A little help before you break something ---"<<endl;
-			cout<<"u = move up"<<endl;
-			cout<<"d = move down"<<endl;
-			cout<<"l = move left"<<endl;
-			cout<<"r = move right"<<endl;
-			cout<<"n = new game - fresh start"<<endl;
-			cout<<"h = this helpful menu"<<endl;
-			cout<<"e = exit - take the easy way out"<<endl;
-			cout<<"Matching tiles merge once per move."<<endl;
-			cout<<"Each successful move adds a new 2."<<endl;
-			cout<<"Aim for the 2048 tile!"<<endl;
+			cout<<"--- A little help before you break something ---"<<endl; //Prints help menu header.
+			cout<<"u = move up"<<endl; //Explains 'u' choice.
+			cout<<"d = move down"<<endl; //Explains 'd' choice.
+			cout<<"l = move left"<<endl; //Explains 'l' choice.
+			cout<<"r = move right"<<endl; //Explains 'r' choice.
+			cout<<"n = new game - fresh start"<<endl; //Explains 'n' choice.
+			cout<<"h = this helpful menu"<<endl; //Explains 'h' choice.
+			cout<<"e = exit - take the easy way out"<<endl; //Explains 'e' choice.
+			cout<<"Matching tiles merge once per move."<<endl; //Explains merging rule.
+			cout<<"Each successful move adds a new 2."<<endl; //Explains new tile addition.
+			cout<<"Aim for the 2048 tile!"<<endl; //Explains the goal of the game.
 		}
 		else if(choice != 'e') //All is invalid except exit.
 		{
@@ -100,6 +124,23 @@ int main()
 
 		cout<<"Score: "<<score<<endl; //Prints the total score.
 		cout<<"Moves: "<<moves<<endl; //Prints out the number of successful moves.
+		cout<<"Highest Tile: "<<highest_tile(board, size)<<endl; //Prints the highest tile.
+
+		if(highest_tile(board, size) == 2048 && !winUpdate) //Checks if the player has wont and the win message has been displayed.
+		{
+			cout<<endl; //Space before win message.
+			cout<<"                                 WIN                                "<<endl; //Displays win header.
+			cout<<"*** 2048! You slid your way to a win! Way to overachieve! ***"<<endl; //Displays win message.
+			cout<<endl; //Space after win message.
+			winUpdate = true; //Updates the win message status.
+		}
+
+		if(game_over(board, size)) //Checks if the game is over.
+		{
+			cout<<"** No moves remain! This board is finished! **"<<endl; //Prints game over message.
+			cout<<"For a new game, press 'n'"<<endl; //Prints out how to start a new game.
+			cout<<"Press 'e' to exit or 'h' for help."<<endl; //Prints out how to exit or get help.
+		}
 
 	}
 

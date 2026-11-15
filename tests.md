@@ -92,3 +92,18 @@ Input: h; Expected: help menu displayed, game remains open; Actual: As Expected;
 # Full-board Merge
 First row 2 2 2 4 2 for test.
 Input: l; Expected: first row 4 2 4 2 2, score 4, moves 1, no game over; Actual: As Expected; Passed.
+
+# Save Game
+Input: s after play; Expected: savegame.txt with format label, current score, moves, and all 25 tiles, game unchanged; Actual: As Expected; Passed.
+-Overwrite Save
+Input: move, s; Expected: same file updated with new board values, score, and moves; Actual: As Expected; Passed.
+
+# Load Game
+Input: s, make move, then o; Expected: Previously saved board; Actual: As Expected; Passed.
+t
+# Invalid Save
+Changed label to wrong_label; Expected: failed load message, game unchanged; Actual: As Expected; Passed.
+Added a negative value (-1); Expected: failed load message, game unchanged; Actual: As Expected; Passed.
+Added an invalid value (3); Expected: failed load message, game unchanged; Actual: As Expected; Passed.
+Added extra data in the last row (99); Expected: failed load message, game unchanged; Actual: As Expected; Passed.
+Removed a tile; Expected: failed load message, game unchanged; Actual: As Expected; Passed.

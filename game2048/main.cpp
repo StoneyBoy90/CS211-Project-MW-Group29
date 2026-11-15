@@ -10,21 +10,6 @@ int main()
 	int moves = 0; //Counts successful moves.
 
 	new_game(board, score, moves, size); //Starts new game.
-	//Test
-	for(int r = 0; r < size; r++) //Start filling board for test.
-	{
-		for(int c = 0; c < 5; c++) //Starts filling each column.
-		{
-			if((r+c)%2 == 0) //Fills each cell.
-			{
-				board[r][c] = 2; //Fills the cell with a 2 for test.
-			}
-			else
-			{
-				board[r][c] = 4; //Fills the cell with a 4 for test.
-			}
-		}
-	}
 
 	cout<<"Initial Board: [5x5]"<<endl; //Prints the initial board.
 	print_board(board); //Diplays board.
@@ -38,7 +23,7 @@ int main()
 	while (choice != 'e')
 	{
 
-		cout << "Please enter choice:{u,d,l,r,n,h,e} for UP, DOWN, LEFT, RIGHT, New Game, Help, Exit: " << endl; //Prompts the user for input.
+		cout << "Please enter choice:{u,d,l,r,n,h,s,o,e} for UP, DOWN, LEFT, RIGHT, New Game, Help, Save, Open, Exit: " << endl; //Prompts the user for input.
 		cout << "Choice: "; //Asks the user for their choice.
 		if(!(cin>>choice)) //Stops if input ends or cannot be read.
 		{
@@ -47,7 +32,7 @@ int main()
 
 		if ((choice == 'u' || choice == 'd' || choice == 'l' || choice == 'r') && game_over(board, size))
 		{
-			cout<<"** No moves remain! This board is finsihed! **"<<endl; //Prints game over message.
+			cout<<"** No moves remain! This board is finished! **"<<endl; //Prints game over message.
 			cout<<"For a new game, press 'n'"<<endl; //Prints out how to start a new game.
 			cout<<"Press 'e' to exit or 'h' for help."<<endl; //Prints out how to exit or get help.
 		}
@@ -111,10 +96,35 @@ int main()
 			cout<<"r = move right"<<endl; //Explains 'r' choice.
 			cout<<"n = new game - fresh start"<<endl; //Explains 'n' choice.
 			cout<<"h = this helpful menu"<<endl; //Explains 'h' choice.
+			cout<<"s = save your game"<<endl; //Explains 's' choice.
+			cout<<"o = open your saved game"<<endl; //Explains 'o' choice.
 			cout<<"e = exit - take the easy way out"<<endl; //Explains 'e' choice.
 			cout<<"Matching tiles merge once per move."<<endl; //Explains merging rule.
 			cout<<"Each successful move adds a new 2."<<endl; //Explains new tile addition.
 			cout<<"Aim for the 2048 tile!"<<endl; //Explains the goal of the game.
+		}
+		else if(choice == 's') //Save game choice.
+		{
+			if(save_game(board, score, moves, size)) //Attempt to save the game.
+			{
+				cout<<"** Your Progress has been Saved! **"<<endl;
+			}
+			else
+			{
+				cout<<"** Failed to save progress. **"<<endl;
+			}
+		}
+		else if(choice == 'o') //Load game choice.
+		{
+			if(load_game(board, score, moves, size))
+			{
+				cout<<"** Your previous game opened successfully! **"<<endl;
+				winUpdate = false; //Lets the game know to display win if needed.
+			}
+			else
+			{
+				cout<<"** Failed to open your saved game. **"<<endl;
+			}
 		}
 		else if(choice != 'e') //All is invalid except exit.
 		{

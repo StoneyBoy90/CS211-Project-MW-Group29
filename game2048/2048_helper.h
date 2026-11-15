@@ -1,6 +1,8 @@
 #include <iostream>
 #include <random>
 #include <iomanip>
+#include <fstream> //Allows file input and output operations.
+#include <string> //Used to check the save game file.
 using namespace std;
 
 bool move_left(int board[][5], int &score, int numrows = 5)
@@ -369,4 +371,108 @@ bool game_over(int board[][5], int numrows = 5) //Check if the game is over.
 		}
 	}
 	return true; //No moves are left, game is over.
+}
+
+bool save_game(int board[][5], int score, int moves, int numrows = 5) //Saves the current game to a file.
+{
+	ofstream saveFile("savegame.txt"); //Opens the save file.
+
+	if(!saveFile) //Checks if the file could not be opened.
+	{
+		return false; //The file could not be opened.
+	}
+
+	saveFile<<"CS211_2048_V1"<<endl; //Names the save file format.
+	saveFile<<score<<" "<<moves<<endl; //Saves the score and moves.
+
+	for(int r = 0; r < numrows; r++) //Cycles through each row.
+	{
+		for(int c = 0; c < 5; c++) //Cycles through each column.
+		{
+			saveFile<<board[r][c]<<" "; //Saves each title.
+		}
+		saveFile<<endl; //Starts a new row.
+	}
+
+	saveFile.close(); //Closes the save file.
+	return true; //Indicates the gave was saved.
+
+}
+
+bool load_game(int board[][5], int &score, int &moves, int numrows = 5) //Loads saved game.
+{
+	ifstream loadFile("savegame.txt"); //Opens the saved file.
+
+	if(!loadFile) //Checks if the file could not be opened.
+	{
+		return false; //The file could not be opened.
+	}
+	string label; //Stores the label from the save file.
+	int savedScore; //Stores the score from the save file.
+	int savedMoves; //Stores the moves from the save file.
+
+	if(!(loadFile>>label) || label != "CS211_2048_V1") //Checks if the label is correct.
+	{
+		return false; //Rejects incorrect label.
+	}
+	if(!(loadFile>>savedScore>>savedMoves))
+	{
+		return false; //Rejects incorrect score and moves.
+	}
+	if(savedScore < 0 || savedMoves < 0)
+	{
+		return false; //Rejects negative score or moves.
+	}
+	int savedBoard[5][5]; //Stores the board from the save file.
+	
+	for(int r = 0; r < numrows; r++) //Cycles through each row.
+	{
+		for(int c = 0; c < 5; c++) //Cycles through each column.
+		{
+			if(!(loadFile>>savedBoard[r][c]))
+			{
+				return false; //Rejects incorrect board values.
+			}
+			int tile = savedBoard[r][c]; //Stores the current tile value.
+
+			if(tile != 0) //Zero is allowed.
+			{
+				if(tile < 2) //Rejects numbers less than 2.
+				{
+					return false; //Rejects negative numbers and 1.
+				}
+				while(tile%2 == 0) //Checks if the tile is divisible by 2.
+				{
+					tile /= 2; //Divides the tile by 2.
+				}
+				if(tile != 1) //If the tile is not 1 then it is not a power of 2.
+				{
+					return false; //Rejects numbers that are not powers of 2.
+				}
+			}
+		}
+	}
+	string extra; //Stores any extra data found in the file.
+
+	if(loadFile>>extra) //Checks if there is any extra data in the file.
+	{
+		return false; //Rejects extra data in the file.
+	}
+	if(!loadFile.eof()) //Checks if the file has not reached the end.
+	{
+		return false; //Rejects a reading error instead of normal file ending.
+	}
+
+	for(int r = 0; r < numrows; r++) //Cycles through each row.
+	{
+		for(int c = 0; c < 5; c++) //Cycles through each column.
+		{
+			board[r][c] = savedBoard[r][c]; //Copies the saved board values to the current board.
+		}
+	}
+
+	score = savedScore; //Updates the current score with the saved score.
+	moves = savedMoves; //Updates the current moves with the saved moves.
+
+	return true; //The saved game loaded successfully.
 }

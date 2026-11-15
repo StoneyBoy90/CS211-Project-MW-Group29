@@ -100,10 +100,23 @@ Input: move, s; Expected: same file updated with new board values, score, and mo
 
 # Load Game
 Input: s, make move, then o; Expected: Previously saved board; Actual: As Expected; Passed.
-t
+
 # Invalid Save
 Changed label to wrong_label; Expected: failed load message, game unchanged; Actual: As Expected; Passed.
 Added a negative value (-1); Expected: failed load message, game unchanged; Actual: As Expected; Passed.
 Added an invalid value (3); Expected: failed load message, game unchanged; Actual: As Expected; Passed.
 Added extra data in the last row (99); Expected: failed load message, game unchanged; Actual: As Expected; Passed.
 Removed a tile; Expected: failed load message, game unchanged; Actual: As Expected; Passed.
+Changed file name to Backup.txt; Expected: failed load message, game unchanged; Actual: As Expected; Passed.
+
+
+## Luhn tests
+
+Input: 4532015112830366; Expected: valid checksum; Actual: valid checksum; Passed.
+Input: 4532015112830367; Expected: invalid checksum; Actual: invalid checksum; Passed.
+Input: 0000000000000018; Expected: leading zeros remained, valid checksum; Actual: As Expected; Passed.
+Input: 123456789012345; Expected: length error; Actual: length error; Passed.
+Input: 12345678901234567; Expected: length error; Actual: length error; Passed.
+Input: 123456789012345X; Expected: non-integer error; Actual: non-integer error; Passed.
+Input: 12345678 1234567; Expected: space error; Actual: space error; Passed.
+Input: e; Expected: exits program; Actual: exits program; Passed.

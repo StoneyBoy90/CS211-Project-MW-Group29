@@ -394,7 +394,7 @@ bool save_game(int board[][5], int score, int moves, int numrows) //Saves the cu
 	}
 
 	saveFile.close(); //Closes the save file.
-	return true; //Indicates the gave was saved.
+	return !saveFile.fail(); //Returns false if saving failed.
 
 }
 

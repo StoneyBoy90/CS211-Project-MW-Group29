@@ -96,7 +96,7 @@ int main()
 			cout<<"r = move right"<<endl; //Explains 'r' choice.
 			cout<<"n = new game - fresh start"<<endl; //Explains 'n' choice.
 			cout<<"h = this helpful menu"<<endl; //Explains 'h' choice.
-			cout<<"s = save your game"<<endl; //Explains 's' choice.
+			cout<<"s = save your game (overwrites previously saved game)"<<endl; //Explains 's' choice.
 			cout<<"o = open your saved game"<<endl; //Explains 'o' choice.
 			cout<<"e = exit - take the easy way out"<<endl; //Explains 'e' choice.
 			cout<<"Matching tiles merge once per move."<<endl; //Explains merging rule.
@@ -136,7 +136,7 @@ int main()
 		cout<<"Moves: "<<moves<<endl; //Prints out the number of successful moves.
 		cout<<"Highest Tile: "<<highest_tile(board, size)<<endl; //Prints the highest tile.
 
-		if(highest_tile(board, size) == 2048 && !winUpdate) //Checks if the player has wont and the win message has been displayed.
+		if(highest_tile(board, size) >= 2048 && !winUpdate) //Checks if the player has wont and the win message has been displayed.
 		{
 			cout<<endl; //Space before win message.
 			cout<<"                                 WIN                                "<<endl; //Displays win header.

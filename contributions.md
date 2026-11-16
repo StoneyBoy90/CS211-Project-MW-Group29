@@ -41,3 +41,16 @@ Author: Jacob Stoner
 Reviewer: No teammate review completed.
 Merged by: Jacob Stoner
 Checks: Built the program and tested the functions of the help, save, and load.
+
+## PR#5 - Finish project documentation and report
+https://github.com/StoneyBoy90/CS211-Project-MW-Group29/pull/5
+Author: Jacob Stoner
+Reviewer: No teammate review completed.
+Merged by: Jacob Stoner
+Description: Finished project documentation and created the report.pdf, added to project folder.
+
+## PR#6 - Update contribution notes
+Author: Jacob Stoner
+Reviwer: No teammate review completed.
+Merged by: Jacob Stoner
+Description: Updated contribution notes.
